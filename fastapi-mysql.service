@@ -1,0 +1,15 @@
+[Unit]
+Description=Gunicorn instance daemon to FastAPI y MySQL prueba
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/opt/fastapi-mysql
+Environment="PATH=/opt/fastapi-mysql"
+ExecStart=/opt/fastapi-mysql/env/bin/gunicorn app:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
